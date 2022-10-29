@@ -10,43 +10,30 @@ function Home() {
 	
 	const [products, setProducts] = useState(null)
 	
-	const productsA = [{name:"test",desc:""},
-	{name:"test",desc:""},
-	{name:"test",desc:""},
-	{name:"test",desc:""}]
-	
+	const filterUnpricedItems = (arr) => arr.filter(e=>e.price !== "")
 	
 	useEffect(()=>{
 		
-		getData('api/products').then(response=>setProducts(response))
+		getData('product').then(response=>setProducts(filterUnpricedItems(response)))
 		
 	},[])
   return (
-    <Layout> 
-	
+    <Layout>
 	<article className="container-fluid">
-	<section className="row">
-	{JSON.stringify(products)}
-	{productsA.map(product=>(
-	<Link className="card mb-3 col-4 text-decoration-none" to={`product/`+product.id}>
-  <h3 className="card-header">
-   <h5 className="card-title">Special title treatment</h5>
-    <h6 className="card-subtitle text-muted">Support card subtitle</h6>
+	<section className="row row-cols-2 row-cols-lg-4 row-cols-md-3 row-cols-xl-5 g-3">
+	{products === null ? "Loading data..." : products.map(product=>(
+	<Link className="col text-decoration-none" to={`product/`+product.id}>
+  <div className="card h-100"><h3 className="card-header">
+   <h5 className="card-title">{product.model}</h5>
+    <h6 className="card-subtitle text-muted">{product.brand}</h6>
   </h3>
 
-  <svg xmlns="http://www.w3.org/2000/svg" className="d-block user-select-none" width="100%" height="200" aria-label="Placeholder: Image cap" focusable="false" role="img" preserveAspectRatio="xMidYMid slice" viewBox="0 0 318 180" >
-    <rect width="100%" height="100%" fill="#868e96"></rect>
-    <text x="50%" y="50%" fill="#dee2e6" dy=".3em">Image cap</text>
-  </svg>
-  <ul className="list-group list-group-flush">
-    <li className="list-group-item">Brand</li>
-    <li className="list-group-item">Model</li>
-  </ul>
+  <div class="card-body text-center"><img className="img-fluid" src={product.imgUrl} alt={product.brand+'-'+product.model}/></div>
 
-  <div className="card-footer text-muted">
-    PRICE
+  <div className="card-footer text-end">
+  {parseInt(product.price)} €
   </div>
-
+</div>
 	</Link>
 	
 	))}

@@ -1,6 +1,16 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { Outlet, Link } from "react-router-dom";
 
+import { useGlobalContext } from '../context/GlobalContext';
 function Navbar() {
+	const { getCartCount } = useGlobalContext();
+	const [cartCount, setCartCount] = useState(getCartCount('cart_count'))
+	
+	useEffect(()=>{
+		
+		setCartCount(getCartCount('cart_count'))
+		
+	},[])
   return (
     <> <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
   <div className="container-fluid">
@@ -16,24 +26,10 @@ function Navbar() {
           </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">Features</a>
+          <a className="nav-link" href="#">Cart: {cartCount}</a>
         </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">Pricing</a>
-        </li>
-        <li className="nav-item">
-          <a className="nav-link" href="#">About</a>
-        </li>
-        <li className="nav-item dropdown">
-          <a className="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-          <div className="dropdown-menu">
-            <a className="dropdown-item" href="#">Action</a>
-            <a className="dropdown-item" href="#">Another action</a>
-            <a className="dropdown-item" href="#">Something else here</a>
-            <div className="dropdown-divider"></div>
-            <a className="dropdown-item" href="#">Separated link</a>
-          </div>
-        </li>
+        
+        
       </ul>
       <form className="d-flex">
         <input className="form-control me-sm-2" type="text" placeholder="Search"/>

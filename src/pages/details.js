@@ -1,63 +1,122 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from "react";
 
 import { Outlet, Link } from "react-router-dom";
-import Layout from '../layout/layout';
-import { Routes, Route, useParams } from 'react-router-dom';
+import Layout from "../layout/layout";
+import { Routes, Route, useParams } from "react-router-dom";
 
-
-import { useGlobalContext } from '../context/GlobalContext';
+import { useGlobalContext } from "../context/GlobalContext";
 
 function Details() {
-	
-	const { getData } = useGlobalContext();
-	const {productId} = useParams();
-	const [productDetails, setProductDetails] = useState(null)
-	
-	
-	useEffect(()=>{
-		
-		getData('api/prodcut/'+productId).then(response=>setProductDetails(response))
-		
-	},[])
-  return (
+  const { getData } = useGlobalContext();
+  const { productId } = useParams();
+  const [productDetails, setProductDetails] = useState(null);
+  const [specs, setSpecs] = useState(null);
+  const filterSpecs = (obj) =>
+    Object.entries(obj).filter(
+      (e) =>
+        e[0] !== "id" &&
+        e[0] !== "imgUrl" &&
+        e[0] !== "options" &&
+        e[0] !== "brand" &&
+        e[0] !== "price" &&
+        e[0] !== "model"
+    );
+  useEffect(() => {
+    getData("product/" + productId).then((response) =>
+      setProductDetails(response)
+    );
+  }, []);
+  useEffect(() => {
+    if (productDetails !== null) setSpecs(filterSpecs(productDetails));
+  }, [productDetails]);
+  
+  return productDetails === null ? (
+    "Loading..."
+  ) : (
     <Layout>
-	{JSON.stringify(productDetails)}
-	<section className="container col-xxl-8 px-4 py-5">
-    <article className="row flex-lg-row-reverse align-items-center g-5 py-5">
-      <div className="col-10 col-sm-8 col-lg-6">
-        <img src="bootstrap-themes.png" className="d-block mx-lg-auto img-fluid" alt="Bootstrap Themes" width="700" height="500" loading="lazy"/>
-      </div>
-      <div className="col-lg-6">
-        <h1 className="display-5 fw-bold lh-1 mb-3">Responsive left-aligned hero with image</h1>
-        <p className="lead">Quickly design and customize responsive mobile-first sites with Bootstrap, the world’s most popular front-end open source toolkit, featuring Sass variables and mixins, responsive grid system, extensive prebuilt components, and powerful JavaScript plugins.</p>
-        <div className="d-md-flex justify-content-md-center align-items-center">
-		
-			 <div className="form-group w-100 p-4">
-      <label for="exampleSelect1" className="form-label mt-4">Almacenamiento</label>
-      <select className="form-select" id="exampleSelect1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
+      <section className="container">
+        <article className="row justify-content-center align-items-center g-5 py-5">
+          <div className="col-10 col-sm-8 col-lg-6">
+            <img
+              src={productDetails.imgUrl}
+              className="d-block mx-lg-auto img-fluid p-5 border rounded mx-auto"
+              alt="Bootstrap Themes"
+              loading="lazy"
+            />
+          </div>
 
-      <label for="exampleSelect1" className="form-label mt-4">Color</label>
-      <select className="form-select" id="exampleSelect1">
-        <option>1</option>
-        <option>2</option>
-        <option>3</option>
-        <option>4</option>
-        <option>5</option>
-      </select>
-    </div>
+          <div className="col-lg-6">
+            <h1 className="display-5 fw-bold lh-1 mb-3">
+			{productDetails.model}
+			
+            </h1>
+<h3 className="text-muted ms-3">{productDetails.brand}</h3>
 
-          <button type="button" className="btn btn-primary btn-lg px-4 m-5">Guardar</button>
-        </div>
-      </div>
-    </article>
-  </section>
-	</Layout>
+
+
+<div className="d-md-flex justify-content-md-center align-items-center">
+              <div className="form-group w-100 p-4">
+                <label for="storagesSelect" className="form-label mt-4">
+                  Almacenamiento
+                </label>
+                <select className="form-select" id="storagesSelect">
+                  {productDetails.options.storages.map((e) => (
+                    <option value={e.code}>{e.name}</option>
+                  ))}
+                </select>
+
+                <label for="colorsSelect" className="form-label mt-4">
+                  Color
+                </label>
+                <select className="form-select" id="colorsSelect">
+                  {productDetails.options.colors.map((e) => (
+                    <option value={e.code}>{e.name}</option>
+                  ))}
+                </select>
+              </div>
+
+              <button type="button" className="btn btn-primary btn-lg px-4 m-5">
+                Save
+              </button>
+			  <button
+                className="btn btn-primary btn-lg px-4 m-5 dropdown-toggle"
+                type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapseExample"
+                aria-expanded="false"
+                aria-controls="collapseExample"
+              >
+                Specs 
+              </button>
+			  
+            </div>
+           
+
+              
+
+            <div className="collapse" id="collapseExample">
+              <ul className="list-group vh-100 overflow-auto">
+                {specs === null
+                  ? "Loading..."
+                  : specs.map((spec) => (
+                      <li className="list-group-item d-flex justify-content-between align-items-start">
+                        <div className="ms-2 me-auto">
+                          <div className="fw-bold text-capitalize">
+                            {spec[0]}
+                          </div>
+                          {spec[1]}
+                        </div>
+                      </li>
+                    ))}
+              </ul>
+            </div>
+
+
+            
+          </div>
+        </article>
+      </section>
+    </Layout>
   );
 }
 
