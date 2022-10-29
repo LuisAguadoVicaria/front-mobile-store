@@ -1,16 +1,18 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 
-import { Outlet, Link } from "react-router-dom";
 import Layout from "../layout/layout";
-import { Routes, Route, useParams } from "react-router-dom";
+
+import { useParams } from "react-router-dom";
 
 import { useGlobalContext } from "../context/GlobalContext";
 
 function Details() {
-  const { getData } = useGlobalContext();
   const { productId } = useParams();
+  
+  const { getData, postApiCart, setCart } = useGlobalContext();
   const [productDetails, setProductDetails] = useState(null);
   const [specs, setSpecs] = useState(null);
+  
   const filterSpecs = (obj) =>
     Object.entries(obj).filter(
       (e) =>
@@ -21,12 +23,25 @@ function Details() {
         e[0] !== "price" &&
         e[0] !== "model"
     );
+	
   useEffect(() => {
     getData("product/" + productId).then((response) => {
       setProductDetails(response);
-	  setSpecs(filterSpecs(productDetails));
-	});
+      setSpecs(filterSpecs(response));
+    });
   }, []);
+  
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    postApiCart({
+      id: productDetails.id,
+      colorCode: e.target.colorsSelect.value,
+      storageCode: e.target.storagesSelect.value,
+    }).then((e) => {
+      alert("Saved!");
+      setCart(e.count);
+    });
+  };
   
   return productDetails === null ? (
     "Loading..."
@@ -34,70 +49,62 @@ function Details() {
     <Layout>
       <section className="container">
         <article className="row justify-content-center align-items-center g-5 py-5">
-          <div className="col-4">
+         
+          <div className="col-lg-6">
+            <h1 className="display-5 fw-bold lh-1 mb-3">
+              {productDetails.model}
+            </h1>
+            <h3 className="text-muted ms-3">{productDetails.brand}</h3>
+			 <div className="col-6">
             <img
-              src={productDetails.imgUrl}
+              src={""}
               className="d-block mx-lg-auto img-fluid p-5 border rounded mx-auto"
               alt="Bootstrap Themes"
               loading="lazy"
             />
           </div>
-
-          <div className="col-lg-8">
-            <h1 className="display-5 fw-bold lh-1 mb-3">
-			{productDetails.model}
-			
-            </h1>
-<h3 className="text-muted ms-3">{productDetails.brand}</h3>
-
-
-
-<div className="d-md-flex justify-content-md-center align-items-center">
-              <form className="form-group w-100 p-4">
-                <label for="storagesSelect" className="form-label mt-4">
-                  Storage
-                </label>
-                <select className="form-select" id="storagesSelect">
-                  {productDetails.options.storages.map((e) => (
-                    <option value={e.code}>{e.name}</option>
-                  ))}
-                </select>
-
-                <label for="colorsSelect" className="form-label mt-4">
-                  Color
-                </label>
-                <select className="form-select" id="colorsSelect">
-                  {productDetails.options.colors.map((e) => (
-                    <option value={e.code}>{e.name}</option>
-                  ))}
-                </select>
-             
-
-              <button type="submit" className="btn btn-primary btn-lg px-4 m-5">
-                Save
-              </button>
-			  <button
-                className="btn btn-primary btn-lg px-4 m-5 dropdown-toggle"
-                type="button"
-                data-bs-toggle="collapse"
-                data-bs-target="#collapseExample"
-                aria-expanded="false"
-                aria-controls="collapseExample"
+            <div className="d-md-flex justify-content-md-center align-items-center">
+              <form
+                className="form-group w-100 p-4 d-flex"
+                onSubmit={handleSubmit}
               >
-                Specs 
-              </button>
-			   </form>
+                <div className="form-group w-100">
+                  {" "}
+                  <label for="storagesSelect" className="form-label mt-4">
+                    Storage
+                  </label>
+                  <select className="form-select" name="storagesSelect">
+                    {productDetails.options.storages.map((e) => (
+                      <option value={e.code}>{e.name}</option>
+                    ))}
+                  </select>
+                  <label for="colorsSelect" className="form-label mt-4">
+                    Color
+                  </label>
+                  <select className="form-select" name="colorsSelect">
+                    {productDetails.options.colors.map((e) => (
+                      <option value={e.code}>{e.name}</option>
+                    ))}
+                  </select>
+                </div>
+                <div className="form-group d-flex pt-4">
+                  <button
+                    type="submit"
+                    className="btn btn-primary btn-lg m-auto mx-5"
+                  >
+                    Save
+                  </button>
+                </div>
+              </form>
             </div>
-           
+          </div>
 
-              
-
-            <div className="collapse" id="collapseExample">
+          <div className="col-6">
               <ul className="list-group vh-100 overflow-auto">
                 {specs === null
-                  ? "Loading..."
+                  ? "Loading specs..."
                   : specs.map((spec) => (
-                      <li className="list-group-item d-flex justify-content-between align-items-start">
+                      <li className="list-group-item d-flex justify-content-between align-items-start border-bottom">
                         <div className="ms-2 me-auto">
                           <div className="fw-bold text-capitalize">
                             {spec[0]}
@@ -107,9 +114,6 @@ function Details() {
                       </li>
                     ))}
               </ul>
-            </div>
-
-
             
           </div>
         </article>

@@ -3,11 +3,20 @@ import React, { createContext, useContext, useState, useEffect } from "react";
 const Context = createContext();
 
 export const GlobalContext = ({ children }) => {
-  const [cartProductCount, setCartProductCount] = useState(0);
-const [search, setSearch] = useState(null)
+  const getCartCount = () => {
+    const local = localStorage.getItem("cart_count");
+    return local !== undefined ? 0 : local;
+  };
 
-	
-	
+  const [cartProductCount, setCartProductCount] = useState(0);
+  const [search, setSearch] = useState(null);
+  const [cartCount, setCartCount] = useState(getCartCount("cart_count"));
+
+  const setCart = (count) => {
+    setCartCount(count);
+    localStorage.setItem("cart_count", JSON.stringify(count));
+  };
+
   const getData = async (url) => {
     return checkCache(url);
   };
@@ -20,7 +29,7 @@ const [search, setSearch] = useState(null)
     localStorage.setItem(url, JSON.stringify(response));
     return response;
   };
-  
+
   const getApiData = async (url) => {
     try {
       const apiData = await fetch(
@@ -56,21 +65,12 @@ const [search, setSearch] = useState(null)
         }
       );
       const parsedResponse = response.json();
-
-      // Save it in the local storage
-      localStorage.setItem("cart_count", JSON.stringify(parsedResponse.count));
-
-      return parsedResponse.count;
+      return parsedResponse;
     } catch (error) {
       return { error: "Error de servidor" };
     }
 
     return { error: "Error de servidor" };
-  };
-  
-  const getCartCount = () => {
-    const local = JSON.parse(localStorage.getItem("cart_count"));
-    return local !== null ? 0 : local;
   };
 
   return (
@@ -79,8 +79,10 @@ const [search, setSearch] = useState(null)
         getCartCount,
         getData,
         postApiCart,
-		setSearch,
-		search
+        setSearch,
+        search,
+        setCart,
+        cartCount,
       }}
     >
       {children}

@@ -35,11 +35,11 @@ function Home() {
 	setLazyIndex(1);
   }, [search]);
   
-  const productCount = () => filteredProducts.length
+  const productCount = () => filteredProducts?.length
   const loadLazy = () => setLazyIndex(lazyIndex+1)
   return (
     <Layout>
-      <section className="row row-cols-2 row-cols-md-4 row-cols-xl-6 g-3">
+      <section className="row row-cols-2 row-cols-md-4 row-cols-xl-5 g-3">
         {filteredProducts?.map((product) => (
           <Link
             className="col text-decoration-none"
@@ -64,11 +64,11 @@ function Home() {
               </div>
             </div>
           </Link>
-        )).slice(0,10*lazyIndex)}
+        )).slice(0,36*lazyIndex)}
 		
       
-	  <aside>{productCount()<=10 ? null : (<div className="h-100 col-12">
-		<button onClick={loadLazy} className="btn btn-primary">
+	  <aside>{productCount()<=10 || productCount() < 36*lazyIndex ? null : (<div className="d-flex h-100 w-100">
+		<button onClick={loadLazy} className="btn btn-primary m-auto">
 			More...
 			</button></div>)}
 			</aside></section>

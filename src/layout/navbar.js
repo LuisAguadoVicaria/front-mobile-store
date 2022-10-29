@@ -3,14 +3,8 @@ import { Outlet, Link } from "react-router-dom";
 
 import { useGlobalContext } from '../context/GlobalContext';
 function Navbar() {
-	const { getCartCount, setSearch } = useGlobalContext();
-	const [cartCount, setCartCount] = useState(getCartCount('cart_count'))
+	const { setSearch, cartCount } = useGlobalContext();
 	
-	useEffect(()=>{
-		
-		setCartCount(getCartCount('cart_count'))
-		
-	},[])
 	
 	const handleSearch = (e) => {
 		e.preventDefault()
