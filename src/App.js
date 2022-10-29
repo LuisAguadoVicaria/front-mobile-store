@@ -1,4 +1,4 @@
-
+import { GlobalContext } from "./context/GlobalContext";
 import logo from './logo.svg';
 import './App.css';
 
@@ -28,7 +28,7 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-<RouterProvider router={router} />
+<GlobalContext><RouterProvider router={router} /></GlobalContext>
 
   );
 }

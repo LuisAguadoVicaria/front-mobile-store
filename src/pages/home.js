@@ -1,18 +1,33 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
 import { Outlet, Link } from "react-router-dom";
 import Layout from '../layout/layout';
 
+import { useGlobalContext } from '../context/GlobalContext';
+
 function Home() {
+	const { getData } = useGlobalContext();
 	
-	const products = [{name:"test",desc:""},
+	const [products, setProducts] = useState(null)
+	
+	const productsA = [{name:"test",desc:""},
 	{name:"test",desc:""},
 	{name:"test",desc:""},
 	{name:"test",desc:""}]
+	
+	
+	useEffect(()=>{
+		
+		getData('api/products').then(response=>setProducts(response))
+		
+	},[])
   return (
     <Layout> 
 	
 	<article className="container-fluid">
 	<section className="row">
-	{products.map(product=>(
+	{JSON.stringify(products)}
+	{productsA.map(product=>(
 	<Link className="card mb-3 col-4 text-decoration-none" to={`product/`+product.id}>
   <h3 className="card-header">
    <h5 className="card-title">Special title treatment</h5>

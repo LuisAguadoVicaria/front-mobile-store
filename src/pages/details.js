@@ -1,10 +1,27 @@
+import React, { createContext, useContext, useState, useEffect } from 'react';
+
 import { Outlet, Link } from "react-router-dom";
 import Layout from '../layout/layout';
 import { Routes, Route, useParams } from 'react-router-dom';
+
+
+import { useGlobalContext } from '../context/GlobalContext';
+
 function Details() {
+	
+	const { getData } = useGlobalContext();
 	const {productId} = useParams();
+	const [productDetails, setProductDetails] = useState(null)
+	
+	
+	useEffect(()=>{
+		
+		getData('api/prodcut/'+productId).then(response=>setProductDetails(response))
+		
+	},[])
   return (
     <Layout>
+	{JSON.stringify(productDetails)}
 	<section className="container col-xxl-8 px-4 py-5">
     <article className="row flex-lg-row-reverse align-items-center g-5 py-5">
       <div className="col-10 col-sm-8 col-lg-6">
