@@ -48,17 +48,19 @@ function Details() {
   ) : (
     <Layout>
       <section className="container">
-        <article className="row justify-content-center align-items-center g-5 py-5">
+        <article className="row row-cols-1 row-cols-md-2 g-5 py-5">
          
-          <div className="col-lg-6">
+          <div className="col">
+		  
+		  <div className=" bg-black rounded p-5">
             <h1 className="display-5 fw-bold lh-1 mb-3">
               {productDetails.model}
             </h1>
             <h3 className="text-muted ms-3">{productDetails.brand}</h3>
-			 <div className="col-6">
+			 <div className="ms-3">
             <img
               src={""}
-              className="d-block mx-lg-auto img-fluid p-5 border rounded mx-auto"
+              className="img-fluid p-5 mt-5 border rounded"
               alt="Bootstrap Themes"
               loading="lazy"
             />
@@ -96,11 +98,12 @@ function Details() {
                   </button>
                 </div>
               </form>
-            </div>
+            </div></div>
           </div>
 
-          <div className="col-6">
-              <ul className="list-group vh-100 overflow-auto">
+          <div className="col">
+		  <div className="vh-100 overflow-auto rounded p-5 bg-black">
+              <ul className="list-group border rounded">
                 {specs === null
                   ? "Loading specs..."
                   : specs.map((spec) => (
@@ -115,7 +118,7 @@ function Details() {
                     ))}
               </ul>
             
-          </div>
+          </div></div>
         </article>
       </section>
     </Layout>

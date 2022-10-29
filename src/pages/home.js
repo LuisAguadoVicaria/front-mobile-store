@@ -64,7 +64,7 @@ function Home() {
               </div>
             </div>
           </Link>
-        )).slice(0,36*lazyIndex)}
+        )).slice(0,39*lazyIndex)}
 		
       
 	  <aside>{productCount()<=10 || productCount() < 36*lazyIndex ? null : (<div className="d-flex h-100 w-100">
