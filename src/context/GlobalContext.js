@@ -4,7 +4,10 @@ const Context = createContext();
 
 export const GlobalContext = ({ children }) => {
   const [cartProductCount, setCartProductCount] = useState(0);
+const [search, setSearch] = useState(null)
 
+	
+	
   const getData = async (url) => {
     return checkCache(url);
   };
@@ -76,6 +79,8 @@ export const GlobalContext = ({ children }) => {
         getCartCount,
         getData,
         postApiCart,
+		setSearch,
+		search
       }}
     >
       {children}

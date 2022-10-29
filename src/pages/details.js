@@ -22,13 +22,11 @@ function Details() {
         e[0] !== "model"
     );
   useEffect(() => {
-    getData("product/" + productId).then((response) =>
-      setProductDetails(response)
-    );
+    getData("product/" + productId).then((response) => {
+      setProductDetails(response);
+	  setSpecs(filterSpecs(productDetails));
+	});
   }, []);
-  useEffect(() => {
-    if (productDetails !== null) setSpecs(filterSpecs(productDetails));
-  }, [productDetails]);
   
   return productDetails === null ? (
     "Loading..."
@@ -36,7 +34,7 @@ function Details() {
     <Layout>
       <section className="container">
         <article className="row justify-content-center align-items-center g-5 py-5">
-          <div className="col-10 col-sm-8 col-lg-6">
+          <div className="col-4">
             <img
               src={productDetails.imgUrl}
               className="d-block mx-lg-auto img-fluid p-5 border rounded mx-auto"
@@ -45,7 +43,7 @@ function Details() {
             />
           </div>
 
-          <div className="col-lg-6">
+          <div className="col-lg-8">
             <h1 className="display-5 fw-bold lh-1 mb-3">
 			{productDetails.model}
 			
@@ -55,9 +53,9 @@ function Details() {
 
 
 <div className="d-md-flex justify-content-md-center align-items-center">
-              <div className="form-group w-100 p-4">
+              <form className="form-group w-100 p-4">
                 <label for="storagesSelect" className="form-label mt-4">
-                  Almacenamiento
+                  Storage
                 </label>
                 <select className="form-select" id="storagesSelect">
                   {productDetails.options.storages.map((e) => (
@@ -73,9 +71,9 @@ function Details() {
                     <option value={e.code}>{e.name}</option>
                   ))}
                 </select>
-              </div>
+             
 
-              <button type="button" className="btn btn-primary btn-lg px-4 m-5">
+              <button type="submit" className="btn btn-primary btn-lg px-4 m-5">
                 Save
               </button>
 			  <button
@@ -88,7 +86,7 @@ function Details() {
               >
                 Specs 
               </button>
-			  
+			   </form>
             </div>
            
 

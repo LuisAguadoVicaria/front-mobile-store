@@ -3,7 +3,7 @@ import { Outlet, Link } from "react-router-dom";
 
 import { useGlobalContext } from '../context/GlobalContext';
 function Navbar() {
-	const { getCartCount } = useGlobalContext();
+	const { getCartCount, setSearch } = useGlobalContext();
 	const [cartCount, setCartCount] = useState(getCartCount('cart_count'))
 	
 	useEffect(()=>{
@@ -11,6 +11,12 @@ function Navbar() {
 		setCartCount(getCartCount('cart_count'))
 		
 	},[])
+	
+	const handleSearch = (e) => {
+		e.preventDefault()
+		return e.target.value.length > 1 ? setSearch(e.target.value) : setSearch(null)
+		
+	}
   return (
     <> <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
   <div className="container-fluid">
@@ -31,10 +37,9 @@ function Navbar() {
         
         
       </ul>
-      <form className="d-flex">
-        <input className="form-control me-sm-2" type="text" placeholder="Search"/>
-        <button className="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-      </form>
+		
+        <input onChange={handleSearch} className="form-control me-sm-2" type="text" placeholder="Search"/>
+   
     </div>
   </div>
 </nav></>
