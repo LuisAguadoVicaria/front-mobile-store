@@ -10,16 +10,15 @@ function Home() {
 
   const [products, setProducts] = useState(null);
   const [filteredProducts, setFilteredProducts] = useState(null);
-	const [lazyIndex, setLazyIndex] = useState(1)
-  
-  
+  const [lazyIndex, setLazyIndex] = useState(1);
+
   const filterUnpricedItems = (arr) => arr.filter((e) => e.price !== "");
   const filterBySearch = (arr) =>
     search !== null
       ? arr.filter(
           (e) =>
-            e.model.toLowerCase().includes(search) ||
-            e.brand.toLowerCase().includes(search)
+            e.model.toLowerCase().includes(search.toLowerCase()) ||
+            e.brand.toLowerCase().includes(search.toLowerCase())
         )
       : arr;
 
@@ -29,49 +28,59 @@ function Home() {
       setFilteredProducts(filterUnpricedItems(response));
     });
   }, []);
-  
+
   useEffect(() => {
     setFilteredProducts(filterBySearch(products));
-	setLazyIndex(1);
+    setLazyIndex(1);
   }, [search]);
-  
-  const productCount = () => filteredProducts?.length
-  const loadLazy = () => setLazyIndex(lazyIndex+1)
+
+  const productCount = () => filteredProducts?.length;
+  const loadLazy = () => setLazyIndex(lazyIndex + 1);
   return (
     <Layout>
-      <section className="row row-cols-2 row-cols-md-4 row-cols-xl-5 g-3">
-        {filteredProducts?.map((product) => (
-          <Link
-            className="col text-decoration-none"
-            to={`product/` + product.id}
-          >
-            <div className="card h-100">
-              <div className="card-header">
-                <h5 className="card-title fw-bold text-black">{product.model}</h5>
-                <h6 className="card-subtitle text-muted">{product.brand}</h6>
-              </div>
+      <section className="row row-cols-2 row-cols-lg-4 row-cols-xl-5 g-3">
+        {filteredProducts
+          ?.map((product) => (
+            <Link
+              className="col text-decoration-none"
+              to={`product/` + product.id}
+            >
+              <div className="card h-100">
+                <div className="card-header">
+                  <h5 className="card-title fw-bold text-black">
+                    {product.model}
+                  </h5>
+                  <h6 className="card-subtitle text-muted">{product.brand}</h6>
+                </div>
 
-              <div class="card-body text-center">
-                <img
-                  className="img-fluid"
-                  src={"error"}
-                  alt={product.brand + "-" + product.model}
-                />
-              </div>
+                <div class="card-body text-center">
+                  <img
+                    className="img-fluid"
+                    src={"error"}
+                    alt={product.brand + "-" + product.model}
+                  />
+                </div>
 
-              <div className="card-footer text-end">
-                {parseInt(product.price)} €
+                <div className="card-footer text-center">
+                  <span class="badge text-bg-dark fw-bold fs-5">
+                    {parseInt(product.price)} €
+                  </span>
+                </div>
               </div>
+            </Link>
+          ))
+          .slice(0, 39 * lazyIndex)}
+
+        <aside>
+          {productCount() <= 10 || productCount() < 36 * lazyIndex ? null : (
+            <div className="d-flex h-100 w-100">
+              <button onClick={loadLazy} className="btn btn-primary m-auto">
+                More...
+              </button>
             </div>
-          </Link>
-        )).slice(0,39*lazyIndex)}
-		
-      
-	  <aside>{productCount()<=10 || productCount() < 36*lazyIndex ? null : (<div className="d-flex h-100 w-100">
-		<button onClick={loadLazy} className="btn btn-primary m-auto">
-			More...
-			</button></div>)}
-			</aside></section>
+          )}
+        </aside>
+      </section>
     </Layout>
   );
 }

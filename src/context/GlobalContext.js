@@ -5,16 +5,18 @@ const Context = createContext();
 export const GlobalContext = ({ children }) => {
   const getCartCount = () => {
     const local = localStorage.getItem("cart_count");
-    return local !== undefined ? 0 : local;
+    console.log(local);
+    return local;
   };
 
   const [cartProductCount, setCartProductCount] = useState(0);
   const [search, setSearch] = useState(null);
-  const [cartCount, setCartCount] = useState(getCartCount("cart_count"));
+  const [cartCount, setCartCount] = useState(getCartCount());
 
   const setCart = (count) => {
-    setCartCount(count);
-    localStorage.setItem("cart_count", JSON.stringify(count));
+    const sum = count + parseInt(getCartCount());
+    setCartCount(sum);
+    localStorage.setItem("cart_count", JSON.stringify(sum));
   };
 
   const getData = async (url) => {
