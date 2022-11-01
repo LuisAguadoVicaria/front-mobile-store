@@ -1,15 +1,13 @@
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState } from "react";
 
 const Context = createContext();
 
 export const GlobalContext = ({ children }) => {
   const getCartCount = () => {
     const local = localStorage.getItem("cart_count");
-    console.log(local);
     return local;
   };
 
-  const [cartProductCount, setCartProductCount] = useState(0);
   const [search, setSearch] = useState(null);
   const [cartCount, setCartCount] = useState(getCartCount());
 

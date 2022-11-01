@@ -29,7 +29,7 @@ function Details() {
       setProductDetails(response);
       setSpecs(filterSpecs(response));
     });
-  }, []);
+  }, [getData, productId]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,8 +58,8 @@ function Details() {
               <div className="ms-3 text-center">
                 <img
                   src={productDetails.imgUrl}
-                  className="img-fluid p-2 mt-5 card rounded d-inline-block"
-                  alt="Bootstrap Themes"
+                  className="img-fluid p-2 mt-5 rounded d-inline-block"
+                  alt={productDetails.model}
                   loading="lazy"
                 />
               </div>
@@ -74,7 +74,7 @@ function Details() {
                       Storage
                     </label>
                     <select className="form-select" name="storagesSelect">
-                      {productDetails.options.storages.map((e) => (
+                      {productDetails.options?.storages?.map((e) => (
                         <option value={e.code}>{e.name}</option>
                       ))}
                     </select>
@@ -82,7 +82,7 @@ function Details() {
                       Color
                     </label>
                     <select className="form-select" name="colorsSelect">
-                      {productDetails.options.colors.map((e) => (
+                      {productDetails.options?.colors?.map((e) => (
                         <option value={e.code}>{e.name}</option>
                       ))}
                     </select>
