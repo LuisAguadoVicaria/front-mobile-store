@@ -15,9 +15,9 @@ function Navbar() {
 
   return (
     <>
-      <nav className="border-bottom navbar navbar-expand-lg navbar-light bg-light py-2">
+      <nav className="border-bottom navbar navbar-expand-lg navbar-light bg-light py-2 shadow">
         <div className="container">
-          <Link to="/" className="navbar-brand fw-bold fs-4">
+          <Link to="/" className="navbar-brand fw-bold fs-4 ms-3">
             Logo
           </Link>
           <button
@@ -33,16 +33,16 @@ function Navbar() {
           </button>
 
           <div
-            className="py-2 navbar-collapse collapse show"
+            className="py-2 navbar-collapse collapse"
             id="navbarColor03"
           >
-            <div className="d-flex ms-auto">
+            <div className="d-flex ms-auto me-1">
               <div className="d-flex">
                 {" "}
                 <span className="fs-6 badge bg-success rounded-pill me-3 my-auto">
                   {cartCount}
                 </span>
-                <i className="gg-shopping-cart mt-2  me-3"></i>
+                <i className="gg-shopping-cart mt-2 me-3"></i>
               </div>
 
               <input

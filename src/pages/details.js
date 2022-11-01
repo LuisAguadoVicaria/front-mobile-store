@@ -50,7 +50,7 @@ function Details() {
       <section className="container">
         <article className="row row-cols-md-1 row-cols-lg-2 gy-5">
           <div className="col">
-            <div className="list-wrapper w-100 h-100 border p-5">
+            <div className="list-wrapper bg-white w-100 h-100 border p-5 shadow">
               <h1 className="display-5 fw-bold lh-1 mb-3">
                 {productDetails.model}
               </h1>
@@ -101,7 +101,7 @@ function Details() {
           </div>
 
           <div className="col">
-            <div className="list-wrapper border overflow-auto">
+            <div className="list-wrapper border shadow overflow-auto">
               <ul className="list-group">
                 {specs === null
                   ? "Loading specs..."

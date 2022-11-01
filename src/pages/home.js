@@ -45,7 +45,7 @@ function Home() {
               className="col text-decoration-none"
               to={`product/` + product.id}
             >
-              <div className="card h-100">
+              <div className="card h-100 border shadow">
                 <div className="card-header">
                   <h5 className="card-title fw-bold text-black">
                     {product.model}
@@ -69,12 +69,12 @@ function Home() {
               </div>
             </Link>
           ))
-          .slice(0, 39 * lazyIndex)}
+          .slice(0, 19 * lazyIndex)}
 
         <aside>
-          {productCount() <= 10 || productCount() < 36 * lazyIndex ? null : (
-            <div className="d-flex h-100 w-100">
-              <button onClick={loadLazy} className="btn btn-primary m-auto">
+          {productCount() <= 19 || productCount() < 19 * lazyIndex ? null : (
+            <div className="card border-0 bg-transparent d-flex h-100 w-100">
+              <button onClick={loadLazy} className="btn btn-dark m-auto">
                 More...
               </button>
             </div>
