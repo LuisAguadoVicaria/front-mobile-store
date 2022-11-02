@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 
 import Layout from "../layout/layout";
 
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 
 import { useGlobalContext } from "../context/GlobalContext";
 
@@ -63,11 +63,19 @@ function Details() {
                   loading="lazy"
                 />
               </div>
+              <div className="text-center mt-5">
+                <span className="badge text-bg-dark fw-bold fs-3">170 €</span>
+              </div>
               <div className="mt-5 d-md-flex justify-content-md-center align-items-center">
                 <form
-                  className="form-group w-100 p-4 d-flex"
+                  className="form-group w-100 d-flex"
                   onSubmit={handleSubmit}
                 >
+                  <div className="form-group d-flex pt-5">
+                    <Link to="/" className="btn btn-dark btn-lg my-auto me-4">
+                      &#60;
+                    </Link>
+                  </div>
                   <div className="form-group w-100">
                     {" "}
                     <label for="storagesSelect" className="form-label mt-4">
