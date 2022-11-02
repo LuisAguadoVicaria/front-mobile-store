@@ -50,7 +50,7 @@ function Details() {
       <section className="container">
         <article className="row row-cols-md-1 row-cols-lg-2 gy-5">
           <div className="col">
-            <div className="list-wrapper bg-white w-100 h-100 border p-5 shadow">
+            <div className="bg-white w-100 h-100 border p-5 shadow">
               <h1 className="display-5 fw-bold lh-1 mb-3">
                 {productDetails.model}
               </h1>
@@ -66,7 +66,7 @@ function Details() {
               <div className="text-center mt-5">
                 <span className="badge text-bg-dark fw-bold fs-3">170 €</span>
               </div>
-              <div className="mt-5 d-md-flex justify-content-md-center align-items-center">
+              <div className="mt-4 d-md-flex justify-content-md-center align-items-center">
                 <form
                   className="form-group w-100 d-flex"
                   onSubmit={handleSubmit}
