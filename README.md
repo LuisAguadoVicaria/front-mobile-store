@@ -3,6 +3,11 @@
 <p align="center" >
   React mobile store with REST API
 </p>
+<p align="center" >
+  <a href="https://luisaguadovicaria.github.io/front-mobile-store/">
+    <img height="44px"  src="https://github.com/LuisAguadoVicaria/LuisAguadoVicaria/raw/main/proyect-images/live-demo-button.png" alt="live-demo" align="center">
+  </a>
+</p>
 
 <div align="center">
 
@@ -13,7 +18,7 @@
 ## Featured
 
 
->   <li>Async fetch with loading states</li>
+>   <li>Lazy loading cards</li>
 >   <li>Query and save data in the browser's local storage for 1 hour</li>
 >   <li>Save cart to API</li>
 >   <li>React custom flux</li>
