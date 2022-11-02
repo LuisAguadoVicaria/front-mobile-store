@@ -62,7 +62,7 @@ export const GlobalContext = ({ children }) => {
       return { error: "Error de servidor" };
     }
 
-    return { error: "Error de servidor" };
+    //return { error: "Error de servidor" };
   };
 
   // body: { id: 0001, colorCode: 1, storageCode: 2 }
@@ -85,7 +85,7 @@ export const GlobalContext = ({ children }) => {
       return { error: "Error de servidor" };
     }
 
-    return { error: "Error de servidor" };
+    //return { error: "Error de servidor" };
   };
 
   return (
