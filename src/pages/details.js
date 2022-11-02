@@ -78,20 +78,20 @@ function Details() {
                   </div>
                   <div className="form-group w-100">
                     {" "}
-                    <label for="storagesSelect" className="form-label mt-4">
+                    <label htmlFor="storagesSelect" className="form-label mt-4">
                       Storage
                     </label>
                     <select className="form-select" name="storagesSelect">
-                      {productDetails.options?.storages?.map((e) => (
-                        <option value={e.code}>{e.name}</option>
+                      {productDetails.options?.storages?.map((e,i) => (
+                        <option key={i} value={e.code}>{e.name}</option>
                       ))}
                     </select>
-                    <label for="colorsSelect" className="form-label mt-4">
+                    <label htmlFor="colorsSelect" className="form-label mt-4">
                       Color
                     </label>
                     <select className="form-select" name="colorsSelect">
-                      {productDetails.options?.colors?.map((e) => (
-                        <option value={e.code}>{e.name}</option>
+                      {productDetails.options?.colors?.map((e,i) => (
+                        <option key={i} value={e.code}>{e.name}</option>
                       ))}
                     </select>
                   </div>
@@ -113,8 +113,8 @@ function Details() {
               <ul className="list-group">
                 {specs === null
                   ? "Loading specs..."
-                  : specs.map((spec) => (
-                      <li className="list-group-item text-black list-group-item-action">
+                  : specs.map((spec, i) => (
+                      <li key={i} className="list-group-item text-black list-group-item-action">
                         <div className="ms-2 me-auto">
                           <div className="fw-bold text-capitalize">
                             {spec[0]}

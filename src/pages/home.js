@@ -24,7 +24,7 @@ function Home() {
   useEffect(() => {
     const filterBySearch = (arr) =>
       search !== null
-        ? arr.filter(
+        ? arr?.filter(
             (e) =>
               e.model.toLowerCase().includes(search.toLowerCase()) ||
               e.brand.toLowerCase().includes(search.toLowerCase())

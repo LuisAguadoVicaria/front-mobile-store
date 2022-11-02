@@ -5,6 +5,7 @@ const Context = createContext();
 export const GlobalContext = ({ children }) => {
   const getCartCount = () => {
     const local = localStorage.getItem("cart_count");
+	if(local === null) return 0;
     return local;
   };
 
@@ -23,10 +24,24 @@ export const GlobalContext = ({ children }) => {
 
   const checkCache = async (url) => {
     const local = JSON.parse(localStorage.getItem(url));
-    if (local !== null) return local;
+
+    const currentDate = new Date();
+    if (
+      local !== null 
+      
+    ){
+		
+		if(currentDate - Date.parse(local["date"]) < 60 * 60 * 1000){
+      return local["res"];
+		}
+	  
+	}
 
     const response = await getApiData(url);
-    localStorage.setItem(url, JSON.stringify(response));
+    localStorage.setItem(
+      url,
+      JSON.stringify({ res: response, date: currentDate })
+    );
     return response;
   };
 
