@@ -1,9 +1,6 @@
 import React, { createContext, useContext, useState } from "react";
 import { render, screen } from '@testing-library/react';
 import App from '../App';
-import Details from '../pages/details'
-
-import { useGlobalContext } from "../context/GlobalContext";
 
 test('renders app layout', () => {
   render(<App />);

@@ -34,7 +34,7 @@ function Home() {
     setLazyIndex(1);
   }, [search, products]);
 
-  const productCount = () => filteredProducts?.length;
+  const productCount = filteredProducts?.length;
   const loadLazy = () => setLazyIndex(lazyIndex + 1);
   return (
     <Layout>
@@ -73,9 +73,9 @@ function Home() {
           .slice(0, 19 * lazyIndex)}
 
         <aside>
-          {!Number.isInteger(productCount()) ||
-          productCount() <= 19 ||
-          productCount() < 19 * lazyIndex ? null : (
+          {!Number.isInteger(productCount) ||
+          productCount <= 19 ||
+          productCount < 19 * lazyIndex ? null : (
             <div className="card border-0 bg-transparent d-flex h-100 w-100">
               <button onClick={loadLazy} className="btn btn-dark m-auto">
                 More...

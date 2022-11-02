@@ -63,7 +63,7 @@ function Details() {
                   loading="lazy"
                 />
               </div>
-              <div className="d-md-flex justify-content-md-center align-items-center">
+              <div className="mt-5 d-md-flex justify-content-md-center align-items-center">
                 <form
                   className="form-group w-100 p-4 d-flex"
                   onSubmit={handleSubmit}
