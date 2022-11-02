@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/front-mobile-store/static/css/main.33c5c7e7.css",
+    "main.js": "/front-mobile-store/static/js/main.f35a5cbf.js",
+    "static/js/787.71df535f.chunk.js": "/front-mobile-store/static/js/787.71df535f.chunk.js",
+    "index.html": "/front-mobile-store/index.html",
+    "main.33c5c7e7.css.map": "/front-mobile-store/static/css/main.33c5c7e7.css.map",
+    "main.f35a5cbf.js.map": "/front-mobile-store/static/js/main.f35a5cbf.js.map",
+    "787.71df535f.chunk.js.map": "/front-mobile-store/static/js/787.71df535f.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.33c5c7e7.css",
+    "static/js/main.f35a5cbf.js"
+  ]
+}
